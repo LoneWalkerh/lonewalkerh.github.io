@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            background-image: url('abstract-modern-cool-geometric-pattern-background-vector.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #337ab7;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #23527c;
+        }
+    </style>
+    <meta http-equiv="refresh" content="5;URL=https://discord.gg/tPBab6D8hW">
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            setInterval(changeText, 1000);
+        });
+
+        function changeText() {
+            let redirectingElement = document.getElementById('redirecting');
+            let currentText = redirectingElement.textContent;
+            let newText = currentText + '.';
+            if (newText.length > 27) {
+                newText = 'Redirecting to Discord';
+            }
+            redirectingElement.textContent = newText;
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h1 id="redirecting">Redirecting to Discord</h1>
+        <p>If you are not redirected within 5 seconds</p>
+        <a href="https://discord.gg/tPBab6D8hW" class="button">Click here</a>
+    </div>
+</body>
+</html>
