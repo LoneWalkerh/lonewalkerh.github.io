@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Search Engine</title>
+  <style>
+#search-input:hover,
+#search-button:hover,
+form:hover {
+  border: 1px solid #2196F3;
+}
+
+    body {
+      font-family: 'Fredoka One', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('abstract-modern-cool-geometric-pattern-background-vector.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    
+    #search-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 20px;
+    }
+    
+    #search-form {
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    #search-input {
+      width: 500px;
+      height: 50px;
+      font-size: 24px;
+      padding: 10px;
+      font-family: 'Fredoka One', Arial, sans-serif;
+      border-radius: 4px;
+      border: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    #search-button {
+      font-size: 24px;
+      padding: 10px 20px;
+      font-family: 'Fredoka One', Arial, sans-serif;
+      background-color: #2196F3;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    #search-button:hover {
+      background-color: #0c7cd5;
+    }
+    
+    #search-button:active {
+      background-color: #075ca9;
+    }
+    
+    #search-input:hover,
+    #search-button:hover,
+    form:hover {
+      border: 1px solid #2196F3;
+    }
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+  </style>
+</head>
+<body>
+  <div id="search-container">
+    <img src="New Project (5).png" alt="Logo" style="max-width: 300px; margin-bottom: 20px;">
+    <div id="search-form">
+      <form action="https://search.brave.com/search" method="GET">
+        <input id="search-input" type="text" name="q" placeholder="Search..." required>
+        <br><br>
+        <input id="search-button" type="submit" value="Search">
+      </form>
+    </div>
+  </div>
+</body>
+</html>
