@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>4D AI Search Engine</title>
+    <link rel="icon" type="image/png" href="New Project (16).png">
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Fredoka One', Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 0;
+            
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .chatbox {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow-y: auto;
+            max-height: 400px;
+            
+        }
+
+        .user-message {
+            background-color: #edf2fc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #000;
+            text-align: right;
+            margin-left: auto;
+            max-width: 70%;
+        }
+
+        .bot-message {
+            background-color: #e2e8f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #000;
+            text-align: left;
+            margin-right: auto;
+            max-width: 70%;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .button-container button:last-child {
+            margin-bottom: 0;
+        }
+
+        .button-container button:hover {
+            background-color: #677bc4;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+            color: #666;
+        }
+    </style>
+    <script>
+        function processInput() {
+            var userInput = document.getElementById("userInput").value.trim();
+            var badWords = ["arse", "fuck", "bloody", "bugger", "cow", "crap", "damn", "ginger", "git", "god", "goddam", "jesus christ", "minger", "sod-off", "arsehole", "balls", "bint", "bitch", "bollocks", "bullshit", "feck", "munter", "pissed", "pissed off", "shit", "son of a bitch", "tits", "bastard", "beaver", "beef curtains", "bellend", "bloodclaat", "clunge", "cock", "dick", "dickhead", "fanny", "flaps", "gash", "knob", "minge", "prick", "punani", "pussy", "snatch", "twat", "c**t", "f**k", "motherf**ker"];
+            var containsBadWord = badWords.some(function (word) {
+                return userInput.toLowerCase().indexOf(word) !== -1;
+            });
+            if (userInput === "" || userInput.includes(" ") || containsBadWord) {
+                alert("Invalid Input. Please Try");
+                return;
+            }
+            var searchQuery = encodeURIComponent(userInput);
+            var searchUrl = "https://search.brave.com/search?q=" + searchQuery;
+            var botResponse = "Let me search that for you. Here are the search results: <a href='" + searchUrl + "' target='_blank'>" + userInput + "</a>";
+            var chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += "<div class='user-message'>" + userInput + "</div>";
+            chatbox.innerHTML += "<div class='bot-message'>" + botResponse + "</div>";
+            document.getElementById("userInput").value = "";
+        }
+
+        function restartChat() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <img src="New%20Project%20(16).png" alt="New Project Image" style="display: block; width: 150px; height: 150px; margin-left: auto; margin-right: auto;">
+
+
+    <h1>4D AI Search Engine</h1>
+    <div id="chatbox" class="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your message here">
+    <div class="button-container">
+        <button onclick="processInput()">Send</button>
+        <button onclick="restartChat()">Reset Chat</button>
+    </div>
+    <div class="copyright">
+        &copy; 2023 All rights reserved - 4D Studios
+    </div>
+</body>
+</html>
