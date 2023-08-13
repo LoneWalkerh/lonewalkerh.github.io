@@ -1,140 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>4D AI Search Engine</title>
-    <link rel="icon" type="image/png" href="New Project (16).png">
+    <title>4DAI Chatbot</title>
     <style>
-        
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
         body {
-            font-family: 'Fredoka One', Arial, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
             margin: 0;
-            
+            padding: 0;
+            background-color: #1a1a1a; /* Dark background color */
+            color: #ffffff; /* Light text color */
         }
 
-        h1 {
-            text-align: center;
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+        #chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2d2d2d; /* Darker chat container background color */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
 
-        .chatbox {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            overflow-y: auto;
-            max-height: 400px;
-            
-        }
-
-        .user-message {
-            background-color: #edf2fc;
+        .message {
+            margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
-            margin-bottom: 10px;
-            color: #000;
+        }
+
+        .user {
+            background-color: #3d3d3d; /* Darker user message background color */
             text-align: right;
-            margin-left: auto;
-            max-width: 70%;
         }
 
-        .bot-message {
-            background-color: #e2e8f0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            color: #000;
+        .ai {
+            background-color: #4d4d4d; /* Darker AI message background color */
             text-align: left;
-            margin-right: auto;
-            max-width: 70%;
         }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .button-container button {
-            padding: 10px 20px;
-            background-color: #7289da;
-            color: #fff;
+        #user-input {
+            width: 70%;
+            padding: 8px;
             border: none;
-            border-radius: 5px;
+            border-radius: 5px 0 0 5px;
+            background-color: #2d2d2d; /* Darker input background color */
+            color: #ffffff; /* Light text color for input */
+        }
+
+        #send-button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 0 5px 5px 0;
             cursor: pointer;
-            margin-bottom: 10px;
         }
 
-        .button-container button:last-child {
-            margin-bottom: 0;
+        #send-button:hover {
+            background-color: #0056b3;
         }
 
-        .button-container button:hover {
-            background-color: #677bc4;
-        }
-
-        .copyright {
+        #generating-message {
             text-align: center;
-            font-size: 12px;
-            margin-top: 20px;
-            color: #666;
+            font-weight: bold;
+            color: #888888;
         }
     </style>
-    <script>
-        function processInput() {
-            var userInput = document.getElementById("userInput").value.trim();
-            var badWords = ["arse", "fuck", "bloody", "bugger", "cow", "crap", "damn", "ginger", "git", "god", "goddam", "jesus christ", "minger", "sod-off", "arsehole", "balls", "bint", "bitch", "bollocks", "bullshit", "feck", "munter", "pissed", "pissed off", "shit", "son of a bitch", "tits", "bastard", "beaver", "beef curtains", "bellend", "bloodclaat", "clunge", "cock", "dick", "dickhead", "fanny", "flaps", "gash", "knob", "minge", "prick", "punani", "pussy", "snatch", "twat", "c**t", "f**k", "motherf**ker"];
-            var containsBadWord = badWords.some(function (word) {
-                return userInput.toLowerCase().indexOf(word) !== -1;
-            });
-            if (userInput === "" || userInput.includes(" ") || containsBadWord) {
-                alert("Invalid Input. Please Try");
-                return;
-            }
-            var searchQuery = encodeURIComponent(userInput);
-            var searchUrl = "https://search.brave.com/search?q=" + searchQuery;
-            var botResponse = "Let me search that for you. Here are the search results: <a href='" + searchUrl + "' target='_blank'>" + userInput + "</a>";
-            var chatbox = document.getElementById("chatbox");
-            chatbox.innerHTML += "<div class='user-message'>" + userInput + "</div>";
-            chatbox.innerHTML += "<div class='bot-message'>" + botResponse + "</div>";
-            document.getElementById("userInput").value = "";
-        }
-
-        function restartChat() {
-            var chatbox = document.getElementById("chatbox");
-            chatbox.innerHTML = "";
-        }
-    </script>
 </head>
 <body>
-    <img src="New%20Project%20(16).png" alt="New Project Image" style="display: block; width: 150px; height: 150px; margin-left: auto; margin-right: auto;">
-
-
-    <h1>4D AI Search Engine</h1>
-    <div id="chatbox" class="chatbox"></div>
-    <input type="text" id="userInput" placeholder="Type your message here">
-    <div class="button-container">
-        <button onclick="processInput()">Send</button>
-        <button onclick="restartChat()">Reset Chat</button>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <div id="generating-message"></div>
+        <div style="display: flex;">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
     </div>
-    <div class="copyright">
-        &copy; 2023 All rights reserved - 4D Studios
-    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const apiKey = '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'; // Replace with your actual GPT-3 API key
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const generatingMessage = document.getElementById('generating-message');
+
+        sendButton.addEventListener('click', sendMessage);
+
+        function sendMessage() {
+            const userMessage = userInput.value;
+            displayMessage(userMessage, 'user');
+            userInput.value = '';
+
+            generatingMessage.textContent = 'Generating...';
+
+            fetchAIResponse(userMessage)
+                .then(response => {
+                    displayMessage(response, 'ai');
+                    generatingMessage.textContent = '';
+                })
+                .catch(error => {
+                    console.error(error);
+                    generatingMessage.textContent = '';
+                });
+        }
+
+        function displayMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.innerText = message;
+            chatLog.appendChild(messageElement);
+        }
+
+        async function fetchAIResponse(userMessage) {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        { role: 'system', content: 'You are a chatbot.' },
+                        { role: 'user', content: userMessage }
+                    ]
+                })
+            });
+
+            const responseData = await response.json();
+            return responseData.choices[0].message.content.trim();
+        }
+    </script>
 </body>
 </html>
