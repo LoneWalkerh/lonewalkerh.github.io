@@ -61,20 +61,42 @@
             background-color: #0056b3;
         }
 
+        #reset-button {
+            padding: 8px 15px;
+            background-color: #dc3545;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #reset-button:hover {
+            background-color: #bd2130;
+        }
+
         #generating-message {
             text-align: center;
             font-weight: bold;
             color: #888888;
+        }
+
+        #api-down-message {
+            text-align: center;
+            font-weight: bold;
+            color: red;
         }
     </style>
 </head>
 <body>
     <div id="chat-container">
         <div id="chat-log"></div>
+        <div id="api-down-message"></div>
         <div id="generating-message"></div>
         <div style="display: flex;">
             <input type="text" id="user-input" placeholder="Type your message...">
             <button id="send-button">Send</button>
+            <button id="reset-button">Reset Chat</button>
         </div>
     </div>
 
@@ -84,33 +106,70 @@
         const chatLog = document.getElementById('chat-log');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
+        const resetButton = document.getElementById('reset-button');
         const generatingMessage = document.getElementById('generating-message');
+        const apiDownMessage = document.getElementById('api-down-message');
 
         sendButton.addEventListener('click', sendMessage);
+        resetButton.addEventListener('click', resetChat);
 
         function sendMessage() {
-            const userMessage = userInput.value;
-            displayMessage(userMessage, 'user');
+            const userMessage = userInput.value.trim();
+
+            if (userMessage.toLowerCase().startsWith('i:')) {
+                const imagePrompt = userMessage.substring(2).trim();
+                generateImage(imagePrompt);
+            } else {
+                sendTextMessage(userMessage);
+            }
+
             userInput.value = '';
+        }
+
+        async function generateImage(prompt) {
+            generatingMessage.textContent = 'Generating image...';
+
+            try {
+                const imageResponse = await fetch('https://api.openai.com/v1/images', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'image-alpha-001'
+                    })
+                });
+
+                const imageResponseData = await imageResponse.json();
+                const imageUrl = imageResponseData.url;
+
+                displayImageMessage(imageUrl, 'ai');
+                generatingMessage.textContent = '';
+                apiDownMessage.textContent = '';
+            } catch (error) {
+                console.error(error);
+                generatingMessage.textContent = '';
+                apiDownMessage.textContent = 'API is down! Please try again later.';
+            }
+        }
+
+        async function sendTextMessage(text) {
+            displayMessage(text, 'user');
 
             generatingMessage.textContent = 'Generating...';
 
-            fetchAIResponse(userMessage)
-                .then(response => {
-                    displayMessage(response, 'ai');
-                    generatingMessage.textContent = '';
-                })
-                .catch(error => {
-                    console.error(error);
-                    generatingMessage.textContent = '';
-                });
-        }
-
-        function displayMessage(message, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', sender);
-            messageElement.innerText = message;
-            chatLog.appendChild(messageElement);
+            try {
+                const response = await fetchAIResponse(text);
+                displayMessage(response, 'ai');
+                generatingMessage.textContent = '';
+                apiDownMessage.textContent = '';
+            } catch (error) {
+                console.error(error);
+                generatingMessage.textContent = '';
+                apiDownMessage.textContent = 'API is down! Please try again later.';
+            }
         }
 
         async function fetchAIResponse(userMessage) {
@@ -131,6 +190,26 @@
 
             const responseData = await response.json();
             return responseData.choices[0].message.content.trim();
+        }
+
+        function displayMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.innerText = message;
+            chatLog.appendChild(messageElement);
+        }
+
+        function displayImageMessage(imageUrl, sender) {
+            const imageElement = document.createElement('div');
+            imageElement.classList.add('message', 'ai');
+            imageElement.innerHTML = `<img src="${imageUrl}" alt="Generated Image">`;
+            chatLog.appendChild(imageElement);
+        }
+
+        function resetChat() {
+            chatLog.innerHTML = '';
+            apiDownMessage.textContent = '';
+            generatingMessage.textContent = '';
         }
     </script>
 </body>
