@@ -1,119 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>LoneWalkerh Shop</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+    <title>Redirecting...</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
         body {
-            font-family: 'Fredoka One', cursive;
-            margin: 0;
-            padding: 20px;
-            background-image: url("image.jpg");
+            background-image: url('abstract-modern-cool-geometric-pattern-background-vector.png');
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: center;
-        }
-        
-        .store-container {
-            position: relative;
-            max-width: 800px; /* Adjust the max-width as needed */
-            margin: 0 auto;
-        }
-        
-        .lone-walkerh-image {
-            width: 200px; /* Adjust the width as needed */
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        .store-image {
+            font-family: 'Fredoka One', cursive;
             text-align: center;
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
         }
-        
-        .store-image img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .item {
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: #fff; /* Set text color to white */
-        }
-        
-        .item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        
-        .item-title {
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 10px;
-            text-align: center;
-        }
-        
-        .item-description {
-            margin-top: 5px;
-            text-align: center;
-        }
-        
-        .item-download {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .item-download a {
+
+        .button {
             display: inline-block;
-            padding: 10px 20px;
             background-color: #337ab7;
-            color: #fff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
-        
-        .item-download a:hover {
+
+        .button:hover {
             background-color: #23527c;
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #fff; /* Set text color to white */
-        }
     </style>
+    <meta http-equiv="refresh" content="5;URL=https://discord.gg/tPBab6D8hW">
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            setInterval(changeText, 1000);
+        });
+
+        function changeText() {
+            let redirectingElement = document.getElementById('redirecting');
+            let currentText = redirectingElement.textContent;
+            let newText = currentText + '.';
+            if (newText.length > 27) {
+                newText = 'Redirecting to Discord';
+            }
+            redirectingElement.textContent = newText;
+        }
+    </script>
 </head>
 <body>
-    <div class="store-container">
-        <img src="LoneWalkerh.png" alt="LoneWalkerh" class="lone-walkerh-image">
-        <div class="store-image">
-            <img src="New Project (9).png" alt="Free Roblox Store">
-        </div>
+    <div>
+        <h1 id="redirecting">Redirecting to Discord</h1>
+        <p>If you are not redirected within 5 seconds</p>
+        <a href="https://discord.gg/VtjgputSxg" class="button">Click here</a>
     </div>
-    
-<div class="item">
-    <img src="New Project (10).png" alt="Item 2" style="width: 150px; height: auto;">
-    <div class="item-title">Obby Kit</div>
-    <div class="item-description">An Obby Kit That is A template For a obby</div>
-    <div class="item-download">
-        <a href="obbykit.rbxm" download>Download</a>
-    </div>
-</div>
-    
-<div class="item">
-    <img src="OULTpng.png" alt="Item 2" style="width: 150px; height: auto;">
-    <div class="item-title">Oultfit Changer</div>
-    <div class="item-description">An Oultfit Changer That Changes Shirts or Pants</div>
-    <div class="item-download">
-        <a href="Oultfitchnager.rbxm" download>Download</a>
-    </div>
-</div>
-
-
-
-
+</body>
+</html>
